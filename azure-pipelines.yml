@@ -1,0 +1,32 @@
+stages:
+ 
+- stage: Build
+ 
+  displayName: Build image
+ 
+  jobs: 
+ 
+  - job: Build
+ 
+    displayName: Build
+ 
+    pool:
+ 
+      vmImage: 'ubuntu-latest'
+ 
+    steps:   
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'gcr-tutorial1'
+        command: 'login'
+ 
+    - task: Docker@2
+ 
+      displayName: Build an image
+ 
+      inputs:
+        containerRegistry: 'gcr-tutorial1'
+        repository: 'black-heading-346622/demoappnew'
+        command: 'buildAndPush'
+        Dockerfile: '**/Dockerfile'
+        tags: '1.1'
